@@ -38,6 +38,7 @@ def index():
     records_24_sum = sum([r.calories for r in records_24])
     return flask.render_template(
         "index.jinja2",
+        title="catfood",
         page_title="Last 24 hours",
         records_24=records_24,
         records_24_sum=records_24_sum,
