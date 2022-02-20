@@ -19,6 +19,7 @@
           <tr>
             <td>{{ nice_time(record.e) }}</td>
             <td class="w3-right-align"><strong>{{ record.calories }}</strong> kcal</td>
+            <td class="w3-right-align"><a href="/edit/{{ record.id }}"><i class="fa fa-fw fa-edit"></i></a></td>
           </tr>
         {% endfor %}
         </table>

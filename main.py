@@ -46,6 +46,19 @@ def index():
     )
 
 
+@app.route("/delete/<record_id>")
+def delete(record_id):
+    record = CalorieRecord.objects(id=record_id).first_or_404()
+    record.delete()
+    return flask.redirect(flask.url_for("index"))
+
+
+@app.route("/edit/<record_id>")
+def edit(record_id):
+    record = CalorieRecord.objects(id=record_id).first_or_404()
+    return flask.render_template("edit.jinja2", record=record)
+
+
 @app.route("/add/<new_calories>")
 def add(new_calories):
     today = datetime.datetime.today()

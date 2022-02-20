@@ -1,0 +1,14 @@
+{% extends 'base.jinja2' %}
+
+{% block content %}
+  <header class="w3-container w3-brown">
+    <h2>{{ page_title|capitalize }}</h2>
+  </header>
+
+  <div class="w3-container w3-panel w3-white">
+
+    <a href="/delete/{{ record.id }}">Delete</a>
+
+  </div>
+
+{% endblock %}
