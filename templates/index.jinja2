@@ -9,13 +9,13 @@
     <p>
       <div class="w3-container w3-dark-gray w3-margin-bottom">
         <h3>
-          Total calories: {{ records_24_sum }}
+          Total calories: {{ records_hours_sum }}
         </h3>
       </div>
 
 
       <table class="w3-table-all">
-        {% for record in records_24 %}
+        {% for record in records_hours %}
           <tr>
             <td>{{ nice_time(record.e) }}</td>
             <td class="w3-right-align"><strong>{{ record.calories }}</strong> kcal</td>
@@ -25,7 +25,7 @@
 
       <h3>Add new</h3>
       <p>
-        {% for c in [100,200,300,400,500,600,700,800,900] %}
+        {% for c in range(50,900,100) %}
           <a style="line-height: 1; margin-bottom: 5px;" class="w3-button w3-deep-orange" href="/add/{{ c }}">{{ c }}</a>
         {% endfor %}
       </p>
