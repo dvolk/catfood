@@ -8,7 +8,7 @@ import time
 
 app = flask.Flask(__name__)
 app.secret_key = "secret"
-app.config["MONGODB_DB"] = "catwiki-1"
+app.config["MONGODB_DB"] = "catfood-1"
 db = flask_mongoengine.MongoEngine(app)
 
 
