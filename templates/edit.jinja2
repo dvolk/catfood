@@ -6,8 +6,13 @@
   </header>
 
   <div class="w3-container w3-panel w3-white">
+    <p>
+      <a class="w3-button w3-red" href="/delete/{{ record.id }}"><i class="fa fa-fw fa-trash"></i> Delete record</a>
+    </p>
 
-    <a href="/delete/{{ record.id }}">Delete</a>
+    <p>
+      <a class="w3-button w3-blue" href={{ url_for('index') }}><i class="fa fa-fw fa-arrow-left"></i> Index</a>
+    </p>
 
   </div>
 

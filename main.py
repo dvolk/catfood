@@ -56,7 +56,9 @@ def delete(record_id):
 @app.route("/edit/<record_id>")
 def edit(record_id):
     record = CalorieRecord.objects(id=record_id).first_or_404()
-    return flask.render_template("edit.jinja2", record=record)
+    return flask.render_template(
+        "edit.jinja2", title="Cat food", page_title="Edit", record=record
+    )
 
 
 @app.route("/add/<new_calories>")
