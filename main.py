@@ -36,6 +36,7 @@ def index():
         CalorieRecord.objects.filter(e__gt=epochtime_24h_ago).order_by("-e").all()
     )
     records_24_sum = sum([r.calories for r in records_24])
+
     return flask.render_template(
         "index.jinja2",
         title="catfood",
@@ -52,7 +53,6 @@ def add(new_calories):
     date_now = int(today.strftime("%Y%m%d"))
     time_now = int(today.strftime("%M%S"))
     epochtime_now = int(today.timestamp())
-    epochtime_24h_ago = epochtime_now - (24 * 60 * 60)
 
     CalorieRecord(
         d=date_now,
