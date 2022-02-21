@@ -1,10 +1,10 @@
-import flask_mongoengine
-import argh
-import flask
-import humanize
 import datetime
 import time
 
+import argh
+import flask
+import flask_mongoengine
+import humanize
 
 app = flask.Flask(__name__)
 app.secret_key = "secret"
@@ -44,6 +44,11 @@ def index():
         records_hours_sum=records_hours_sum,
         nice_time=nice_time,
     )
+
+
+@app.route("/new")
+def new():
+    return flask.render_template("add.jinja2", title="Cat food", page_title="Add")
 
 
 @app.route("/delete/<record_id>")
