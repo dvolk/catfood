@@ -6,15 +6,15 @@
   </header>
 
   <div class="w3-container w3-panel w3-white">
-    <h3>Add new</h3>
-    <p>
+    <h3>Add new record</h3>
       {% for c in range(50,950,50) %}
-        <a style="line-height: 1; margin: 5px; margin-bottom: 10px;" class="w3-button w3-deep-orange" href="/add/{{ c }}">{{ c }}</a>
-      {% endfor %}
+    <p>
+        <a style="width: 100%" class="w3-button w3-teal" href="/add/{{ c }}">{{ c }}</a>
     </p>
+      {% endfor %}
 
     <p>
-      <a class="w3-button w3-blue" href={{ url_for('index') }}><i class="fa fa-fw fa-arrow-left"></i> Index</a>
+      <a style="width: 100%" class="w3-button w3-blue" href={{ url_for('index') }}><i class="fa fa-fw fa-arrow-left"></i> Index</a>
     </p>
 
   </div>
