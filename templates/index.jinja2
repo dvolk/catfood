@@ -7,15 +7,38 @@
 
   <div class="w3-container w3-panel w3-white">
     <p>
-      <div class="w3-container w3-dark-gray w3-margin-bottom">
+      <div class="w3-container w3-lime w3-margin-bottom">
         <h3>
-          Total calories: {{ records_hours_sum }}
+          Today calories: {{ records_today_sum }}
         </h3>
       </div>
 
+      <div class="w3-container w3-khaki w3-margin-bottom">
+        <h3>
+          Yesterday calories: {{ records_yesterday_sum }}
+        </h3>
+      </div>
 
+      <div class="w3-container w3-yellow w3-margin-bottom">
+        <h3>
+          {{ hours_ago }} hours calories: {{ records_hours_sum }}
+        </h3>
+      </div>
+
+      <p>Today</p>
       <table class="w3-table-all">
-        {% for record in records_hours %}
+        {% for record in records_today %}
+          <tr>
+            <td>{{ nice_time(record.e) }}</td>
+            <td class="w3-right-align"><strong>{{ record.calories }}</strong> kcal</td>
+            <td class="w3-right-align"><a href="/edit/{{ record.id }}"><i class="fa fa-fw fa-edit"></i></a></td>
+          </tr>
+        {% endfor %}
+        </table>
+
+      <p>Yesterday</p>
+      <table class="w3-table-all">
+        {% for record in records_yesterday %}
           <tr>
             <td>{{ nice_time(record.e) }}</td>
             <td class="w3-right-align"><strong>{{ record.calories }}</strong> kcal</td>

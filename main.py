@@ -22,26 +22,46 @@ class CalorieRecord(db.Document):
 @app.route("/")
 def index():
     today = datetime.datetime.today()
+    today_db_str = today.strftime("%Y%m%d")
+
+    yesterday = today - datetime.timedelta(days=1)
+    yesterday_db_str = yesterday.strftime("%Y%m%d")
+
     hours_ago = int(flask.request.args.get("hours", 24))
     epochtime_now = int(today.timestamp())
     epochtime_hours_ago = epochtime_now - (hours_ago * 60 * 60)
-
-    def nice_time(t2):
-        return humanize.naturaltime(
-            datetime.timedelta(seconds=(epochtime_now - t2))
-        ).capitalize()
 
     records_hours = list(
         CalorieRecord.objects.filter(e__gt=epochtime_hours_ago).order_by("-e").all()
     )
     records_hours_sum = sum([r.calories for r in records_hours])
 
+    records_today = list(
+        CalorieRecord.objects.filter(d=today_db_str).order_by("-e").all()
+    )
+    records_today_sum = sum([r.calories for r in records_today])
+
+    records_yesterday = list(
+        CalorieRecord.objects.filter(d=yesterday_db_str).order_by("-e").all()
+    )
+    records_yesterday_sum = sum([r.calories for r in records_yesterday])
+
+    def nice_time(t2):
+        return humanize.naturaltime(
+            datetime.timedelta(seconds=(epochtime_now - t2))
+        ).capitalize()
+
     return flask.render_template(
         "index.jinja2",
         title="catfood",
-        page_title=f"Last {hours_ago} hours",
+        page_title=f"Overview",
+        hours_ago=hours_ago,
         records_hours=records_hours,
         records_hours_sum=records_hours_sum,
+        records_today=records_today,
+        records_today_sum=records_today_sum,
+        records_yesterday=records_yesterday,
+        records_yesterday_sum=records_yesterday_sum,
         nice_time=nice_time,
     )
 
