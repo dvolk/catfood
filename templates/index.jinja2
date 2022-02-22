@@ -7,23 +7,27 @@
 
   <div class="w3-container w3-panel w3-white">
     <p>
-      <div class="w3-container w3-lime w3-margin-bottom">
+      <div class="w3-container w3-teal w3-margin-bottom">
         <h3>
-          Today calories: {{ records_today_sum }}
+          Today <span class="w3-right">{{ records_today_sum }} kcal</span>
         </h3>
       </div>
 
-      <div class="w3-container w3-khaki w3-margin-bottom">
+      <div class="w3-container w3-green w3-margin-bottom">
         <h3>
-          Yesterday calories: {{ records_yesterday_sum }}
+          Yesterday <span class="w3-right">{{ records_yesterday_sum }} kcal</span>
         </h3>
       </div>
 
-      <div class="w3-container w3-yellow w3-margin-bottom">
+      <div class="w3-container w3-blue w3-margin-bottom">
         <h3>
-          {{ hours_ago }} hours calories: {{ records_hours_sum }}
+          {{ hours_ago }} hours <span class="w3-right">{{ records_hours_sum }} kcal</span>
         </h3>
       </div>
+
+      <h3>
+        <a href="/new" class="w3-button w3-deep-orange" style="width: 100%">Add new record</a>
+      </h3>
 
       <p>Today</p>
       <table class="w3-table-all">
@@ -47,9 +51,6 @@
         {% endfor %}
         </table>
 
-      <p>
-        <a href="/new" class="w3-button w3-deep-orange">Add new record</a>
-      </p>
   </div>
 
 {% endblock %}
