@@ -7,50 +7,62 @@
 
   <div class="w3-container w3-panel w3-white">
     <p>
-      <div class="w3-container w3-teal w3-margin-bottom">
-        <h3>
-          Today <span class="w3-right">{{ records_today_sum }} kcal</span>
-        </h3>
-      </div>
 
-      <div class="w3-container w3-green w3-margin-bottom">
-        <h3>
-          Yesterday <span class="w3-right">{{ records_yesterday_sum }} kcal</span>
-        </h3>
-      </div>
-
-      <div class="w3-container w3-blue w3-margin-bottom">
-        <h3>
-          {{ hours_ago }} hours <span class="w3-right">{{ records_hours_sum }} kcal</span>
-        </h3>
-      </div>
-
+    <div class="w3-container w3-teal w3-margin-bottom">
       <h3>
-        <a href="/new" class="w3-button w3-deep-orange" style="width: 100%">Add new record</a>
+        Today <span class="w3-right">{{ records_today_sum }} kcal</span>
       </h3>
+    </div>
 
-      <p>Today</p>
-      <table class="w3-table-all">
-        {% for record in records_today %}
-          <tr>
-            <td>{{ nice_time(record.e) }}</td>
-            <td class="w3-right-align"><strong>{{ record.calories }}</strong> kcal</td>
-            <td class="w3-right-align"><a href="/edit/{{ record.id }}"><i class="fa fa-fw fa-edit"></i></a></td>
-          </tr>
-        {% endfor %}
-        </table>
+    <div class="w3-container w3-green w3-margin-bottom">
+      <h3>
+        Yesterday <span class="w3-right">{{ records_yesterday_sum }} kcal</span>
+      </h3>
+    </div>
 
-      <p>Yesterday</p>
-      <table class="w3-table-all">
-        {% for record in records_yesterday %}
-          <tr>
-            <td>{{ nice_time(record.e) }}</td>
-            <td class="w3-right-align"><strong>{{ record.calories }}</strong> kcal</td>
-            <td class="w3-right-align"><a href="/edit/{{ record.id }}"><i class="fa fa-fw fa-edit"></i></a></td>
-          </tr>
-        {% endfor %}
-        </table>
+    <div class="w3-container w3-blue w3-margin-bottom">
+      <h3>
+        {{ hours_ago }} hours <span class="w3-right">{{ records_hours_sum }} kcal</span>
+      </h3>
+    </div>
+
+    <h3>
+      <a href="/new" class="w3-button w3-deep-orange" style="width: 100%">Add new record</a>
+    </h3>
+
+    <p>Last 7 days</p>
+    <p>
+    <table class="w3-table-all">
+      {% for day in last7days %}
+        <tr>
+          <td>{{ day["_id"] }}</td>
+          <td class="w3-right-align"><strong>{{ day["calories"]|sum }}</strong> kcal</td>
+        </tr>
+      {% endfor %}
+    </table>
+    </p>
+
+    <p>Today</p>
+    <table class="w3-table-all">
+      {% for record in records_today %}
+        <tr>
+          <td>{{ nice_time(record.e) }}</td>
+          <td class="w3-right-align"><strong>{{ record.calories }}</strong> kcal</td>
+          <td class="w3-right-align"><a href="/edit/{{ record.id }}"><i class="fa fa-fw fa-edit"></i></a></td>
+        </tr>
+      {% endfor %}
+    </table>
+
+    <p>Yesterday</p>
+    <table class="w3-table-all">
+      {% for record in records_yesterday %}
+        <tr>
+          <td>{{ nice_time(record.e) }}</td>
+          <td class="w3-right-align"><strong>{{ record.calories }}</strong> kcal</td>
+          <td class="w3-right-align"><a href="/edit/{{ record.id }}"><i class="fa fa-fw fa-edit"></i></a></td>
+        </tr>
+      {% endfor %}
+    </table>
 
   </div>
-
 {% endblock %}

@@ -34,16 +34,19 @@ def index():
     records_hours = list(
         CalorieRecord.objects.filter(e__gt=epochtime_hours_ago).order_by("-e").all()
     )
-    records_hours_sum = sum([r.calories for r in records_hours])
-
     records_today = list(
         CalorieRecord.objects.filter(d=today_db_str).order_by("-e").all()
     )
-    records_today_sum = sum([r.calories for r in records_today])
-
     records_yesterday = list(
         CalorieRecord.objects.filter(d=yesterday_db_str).order_by("-e").all()
     )
+
+    last7days = CalorieRecord.objects.filter(
+        d__gt=(int(yesterday_db_str) - 7)
+    ).aggregate([{"$group": {"_id": "$d", "calories": {"$push": "$calories"}}}])
+
+    records_hours_sum = sum([r.calories for r in records_hours])
+    records_today_sum = sum([r.calories for r in records_today])
     records_yesterday_sum = sum([r.calories for r in records_yesterday])
 
     def nice_time(t2):
@@ -63,6 +66,7 @@ def index():
         records_yesterday=records_yesterday,
         records_yesterday_sum=records_yesterday_sum,
         nice_time=nice_time,
+        last7days=list(last7days),
     )
 
 
