@@ -35,7 +35,7 @@
     <table class="w3-table-all">
       {% for day in last7days %}
         <tr>
-          <td>{{ day["_id"] }}</td>
+          <td>{{ (day["_id"]|string)[0:4] }}/{{ (day["_id"]|string)[4:6] }}/{{ (day["_id"]|string)[6:8] }}</td>
           <td class="w3-right-align"><strong>{{ day["calories"]|sum }}</strong> kcal</td>
         </tr>
       {% endfor %}
