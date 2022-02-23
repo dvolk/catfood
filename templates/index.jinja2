@@ -30,13 +30,13 @@
       <a href="/new" class="w3-button w3-deep-orange" style="width: 100%">Add new record</a>
     </h3>
 
-    <p>Last 7 days</p>
+    <p>Last 7 days (avg: {{ statistics.mean(last7days_sums) }}, stdev: {{ statistics.pstdev(last7days_sums)|int }})</p>
     <p>
     <table class="w3-table-all">
-      {% for day in last7days %}
+      {% for day, calories in last7days %}
         <tr>
-          <td>{{ (day["_id"]|string)[0:4] }}/{{ (day["_id"]|string)[4:6] }}/{{ (day["_id"]|string)[6:8] }}</td>
-          <td class="w3-right-align"><strong>{{ day["calories"]|sum }}</strong> kcal</td>
+          <td>{{ day }}</td>
+          <td class="w3-right-align"><strong>{{ calories }}</strong> kcal</td>
         </tr>
       {% endfor %}
     </table>

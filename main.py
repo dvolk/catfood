@@ -1,5 +1,6 @@
 import datetime
 import time
+import statistics
 
 import argh
 import flask
@@ -41,13 +42,23 @@ def index():
         CalorieRecord.objects.filter(d=yesterday_db_str).order_by("-e").all()
     )
 
-    last7days = CalorieRecord.objects.filter(
-        d__gt=(int(yesterday_db_str) - 7)
-    ).aggregate([{"$group": {"_id": "$d", "calories": {"$push": "$calories"}}}])
-
     records_hours_sum = sum([r.calories for r in records_hours])
     records_today_sum = sum([r.calories for r in records_today])
     records_yesterday_sum = sum([r.calories for r in records_yesterday])
+
+    last7days_db = CalorieRecord.objects.filter(
+        d__gt=(int(yesterday_db_str) - 7)
+    ).aggregate([{"$group": {"_id": "$d", "calories": {"$push": "$calories"}}}])
+
+    last7days = list()
+    last7days_sums = list()
+    for r in last7days_db:
+        d = str(r["_id"])
+        cs = r["calories"]
+        s = sum(cs)
+        d_fmt = f"{d[0:4]}/{d[4:6]}/{d[6:8]}"
+        last7days.append([d_fmt, s])
+        last7days_sums.append(s)
 
     def nice_time(t2):
         return humanize.naturaltime(
@@ -67,6 +78,8 @@ def index():
         records_yesterday_sum=records_yesterday_sum,
         nice_time=nice_time,
         last7days=list(last7days),
+        last7days_sums=last7days_sums,
+        statistics=statistics,
     )
 
 
