@@ -8,10 +8,16 @@
   <div class="w3-container w3-panel w3-white">
     <p>
       <form method="POST">
-        <label>Change value</label>
-        <input class="w3-input" type="textbox" name="new_value" value="{{ record.calories }}"/>
         <p>
-          <button style="width: 100%" class="w3-button w3-blue">Submit new value</button>
+          <label>Calorie value</label>
+          <input class="w3-input" type="textbox" name="new_calories" value="{{ record.calories }}"/>
+        </p>
+        <p>
+          <label>Notes</label>
+          <textarea rows=6 class="w3-input" name="new_notes" value="{{ record.notes }}">{{ record.notes }}</textarea>
+        </p>
+        <p>
+          <button style="width: 100%" class="w3-button w3-blue"><i class="fa fa-fw fa-save"></i> Save</button>
         </p>
       </form>
     </p>

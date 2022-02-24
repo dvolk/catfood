@@ -18,6 +18,7 @@ class CalorieRecord(db.Document):
     t = db.IntField()  # MMSS
     e = db.IntField()  # epochtime
     calories = db.IntField()
+    notes = db.StringField()
 
 
 @app.route("/all")
@@ -124,8 +125,11 @@ def edit(record_id):
             "edit.jinja2", title="Cat food", page_title="Edit", record=record
         )
     if flask.request.method == "POST":
-        new_value = flask.request.form.get("new_value")
-        record.calories = int(new_value)
+        print(flask.request.form)
+        new_calories = flask.request.form.get("new_calories")
+        new_notes = flask.request.form.get("new_notes", "").strip()
+        record.calories = int(new_calories)
+        record.notes = new_notes
         record.save()
         return flask.redirect(flask.url_for("edit", record_id=record_id))
 
