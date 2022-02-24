@@ -7,6 +7,16 @@
 
   <div class="w3-container w3-panel w3-white">
     <p>
+      <form method="POST">
+        <label>Change value</label>
+        <input class="w3-input" type="textbox" name="new_value" value="{{ record.calories }}"/>
+        <p>
+          <button style="width: 100%" class="w3-button w3-blue">Submit new value</button>
+        </p>
+      </form>
+    </p>
+
+    <p>
       <a style="width: 100%" class="w3-button w3-red" href="/delete/{{ record.id }}"><i class="fa fa-fw fa-trash"></i> Delete record</a>
     </p>
 

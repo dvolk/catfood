@@ -20,6 +20,27 @@ class CalorieRecord(db.Document):
     calories = db.IntField()
 
 
+@app.route("/all")
+def all():
+    records = list(CalorieRecord.objects.order_by("-e").all())
+
+    today = datetime.datetime.today()
+    epochtime_now = int(today.timestamp())
+
+    def nice_time(t2):
+        return humanize.naturaltime(
+            datetime.timedelta(seconds=(epochtime_now - t2))
+        ).capitalize()
+
+    return flask.render_template(
+        "all.jinja2",
+        title="catfood",
+        page_title=f"All records",
+        records=records,
+        nice_time=nice_time,
+    )
+
+
 @app.route("/")
 def index():
     today = datetime.datetime.today()
@@ -95,12 +116,18 @@ def delete(record_id):
     return flask.redirect(flask.url_for("index"))
 
 
-@app.route("/edit/<record_id>")
+@app.route("/edit/<record_id>", methods=["GET", "POST"])
 def edit(record_id):
     record = CalorieRecord.objects(id=record_id).first_or_404()
-    return flask.render_template(
-        "edit.jinja2", title="Cat food", page_title="Edit", record=record
-    )
+    if flask.request.method == "GET":
+        return flask.render_template(
+            "edit.jinja2", title="Cat food", page_title="Edit", record=record
+        )
+    if flask.request.method == "POST":
+        new_value = flask.request.form.get("new_value")
+        record.calories = int(new_value)
+        record.save()
+        return flask.redirect(flask.url_for("edit", record_id=record_id))
 
 
 @app.route("/add/<new_calories>")
