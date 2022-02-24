@@ -47,7 +47,7 @@ def index():
     records_yesterday_sum = sum([r.calories for r in records_yesterday])
 
     last7days_db = CalorieRecord.objects.filter(
-        d__gt=(int(yesterday_db_str) - 7)
+        d__gt=(int(yesterday_db_str) - 7), d__ne=int(today_db_str)
     ).aggregate([{"$group": {"_id": "$d", "calories": {"$push": "$calories"}}}])
 
     last7days = list()
